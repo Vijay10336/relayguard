@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS webhook_event (
  status VARCHAR(20) NOT NULL,
  attempts INT NOT NULL DEFAULT 0,
  fail_until_attempt INT NOT NULL DEFAULT 0,
- next_attempt_at TIMESTAMP WITH TIME ZONE NOT NULL,
- created_at TIMESTAMP WITH TIME ZONE NOT NULL,
- updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+ next_attempt_at TIMESTAMP(9) WITH TIME ZONE NOT NULL,
+ created_at TIMESTAMP(9) WITH TIME ZONE NOT NULL,
+ updated_at TIMESTAMP(9) WITH TIME ZONE NOT NULL,
  UNIQUE (tenant, event_key)
 );
 CREATE INDEX IF NOT EXISTS idx_event_due ON webhook_event(status, next_attempt_at);
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS delivery_attempt (
  attempt_number INT NOT NULL,
  outcome VARCHAR(20) NOT NULL,
  detail VARCHAR(240) NOT NULL,
- created_at TIMESTAMP WITH TIME ZONE NOT NULL
+ created_at TIMESTAMP(9) WITH TIME ZONE NOT NULL
 );
 CREATE TABLE IF NOT EXISTS demo_ledger (
  id VARCHAR(36) PRIMARY KEY,
@@ -28,5 +28,5 @@ CREATE TABLE IF NOT EXISTS demo_ledger (
  tenant VARCHAR(64) NOT NULL,
  amount_minor BIGINT NOT NULL,
  currency VARCHAR(3) NOT NULL,
- created_at TIMESTAMP WITH TIME ZONE NOT NULL
+ created_at TIMESTAMP(9) WITH TIME ZONE NOT NULL
 );

@@ -31,7 +31,8 @@ class ReliabilityTest {
         jdbc.update("DELETE FROM delivery_attempt"); jdbc.update("DELETE FROM demo_ledger"); jdbc.update("DELETE FROM webhook_event");
     }
     EventService.Receipt receive(String tenant,int failures) { return events.accept(tenant,"evt_1",4900,"USD","same raw payload",failures); }
-    Instant now() { return Instant.now().plusSeconds(1); }
+    // Exercise nanosecond precision: rounding a due timestamp can defer an exact-boundary retry.
+    Instant now() { return Instant.now().plusSeconds(1).with(java.time.temporal.ChronoField.NANO_OF_SECOND, 123456789); }
 
     @Test void duplicatesReturnSameReceipt() {
         var first=receive("acme",0); var second=receive("acme",0);
