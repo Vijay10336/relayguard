@@ -1,0 +1,10 @@
+image: maven:3.9-eclipse-temurin-17
+pipelines:
+  custom:
+    verify:
+      - step:
+          name: Verify Java backend
+          caches:
+            - maven
+          script:
+            - mvn --batch-mode --no-transfer-progress verify
